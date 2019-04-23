@@ -1,0 +1,58 @@
+button{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+p{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+body{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+header{
+	width: 40%;
+	height: 50px;
+	text-align: center;
+	position:fixed; 
+	top:0; 
+	left:0;
+
+	background: #0A9;
+}
+header button{
+	height: 100%;
+	width: 10%;
+	float: right;
+}
+h2{
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	line-height: 50px;
+}
+footer{
+	width: 40%;
+	height: 50px;
+	text-align: center;
+	position:fixed; 
+	bottom: 0;
+	left: 0;
+	background: #0A9;
+}
+footer button{
+	height: 100%;
+	width: 25%;
+	float: left;
+}
+
+content{
+	position:fixed;
+	width: 40%;
+	top: 50px;
+}

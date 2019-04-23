@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<title>个人主页</title>
+	<meta charset="utf-8">
+	<script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/person.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/person.css' %}">
+</head>
+<body>
+	<header>
+		<h2>个人主页</h2>
+		<button id="logout">退出</button>
+	</header>
+	<content>
+		<div id="person_box">
+			<img src="#">
+			<span>
+				<p id="nickname">昵称： XXX</p>
+				<p id="sex">性别： secret</p>
+				<button id="send_apply">加为好友</button>	
+			</span>		
+		</div>
+		<div id="mes_box">
+
+		</div>
+	</content>
+	<footer>
+		<button id="write">说说</button>
+		<button id="information">通知</button>
+		<button id="friend">好友</button>
+		<button id='mine'>我</button>
+	</footer>
+</body>
+</html>

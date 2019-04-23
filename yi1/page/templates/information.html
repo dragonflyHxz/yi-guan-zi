@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<title>通知</title>
+	<meta charset="utf-8">
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/information.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/information.css' %}">
+</head>
+<body>
+	<header>
+		<h2>hello, XXX</h2>
+		<button id="logout">退出</button>
+	</header>
+
+	<content id="information_box">
+
+
+	</content>
+
+	<footer>
+		<button id="write">说说</button>
+		<button id="information">通知</button>
+		<button id="friend">好友</button>
+		<button id='mine'>我</button>
+	</footer>
+</body>
+</html>

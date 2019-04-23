@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<title>好友列表</title>
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/friend.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/friend.css' %}">
+</head>
+<body>
+	<header>
+		<h2>好友列表</h2>
+		<button id="logout">退出</button>
+	</header>
+
+	<content id='friend_list'>
+
+
+	</content>
+
+
+	<footer>
+		<button id="write">说说</button>
+		<button id="information">通知</button>
+		<button id="friend">好友</button>
+		<button id='mine'>我</button>
+	</footer>
+</body>
+</html>

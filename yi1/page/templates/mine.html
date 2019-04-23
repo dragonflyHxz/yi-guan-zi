@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<title>我的</title>
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/mine.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/mine.css' %}">
+</head>
+<body>
+	<header>
+		<h2>hello, XXX</h2>
+		<button id="logout">退出</button>
+	</header>
+
+	<content id="mine_box">
+		<input type="file" name="" style="display: none" id="img_choice" disabled="true"><img src="#" id="avatar">
+		<p>
+			昵称： <input type="text" name="" value="匿名" id="nickname" readonly="true">
+		</p>
+		<p>
+			性别： <input type="text" name="" value="男" id="sex" readonly="true">
+			<!-- <select>
+			  	<option value="保密">保密</option>
+			  	<option value="男">男</option>
+			  	<option value="女">女</option>
+			</select> -->
+		</p>
+		<p>
+			生日： <input type="text" name="" value="2019-11-15" id="birthday" readonly="true">
+			<!-- <input type="date" name="" id="date_change"> -->
+		</p>
+
+		<div>	
+			<button id="commit">提交</button>
+			<button id="change">修改</button>
+		</div>
+	</content>
+
+	<footer>
+		<button id="write">说说</button>
+		<button id="information">通知</button>
+		<button id="friend">好友</button>
+		<button id='mine'>我</button>
+	</footer>
+
+</body>
+</html>

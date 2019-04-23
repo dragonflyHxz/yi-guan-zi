@@ -1,0 +1,78 @@
+footer{
+	height: 35px;
+}
+textarea{
+	margin: 0;
+	padding: 0;
+	border: none;
+	font-size: 20px;
+	line-height: 35px;
+	overflow:hidden;
+	resize:none;
+	outline: none;
+}
+footer textarea{
+	border-bottom: 1px solid skyblue;
+	width: 80%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+content{
+	width: 40%;
+	margin-top: 50px;
+
+	position: absolute;
+
+}
+
+#commit_words{
+	width: 100%;
+}
+
+#write_words{
+	width: 80%;
+	float: left;
+}
+#commit{
+	width: 20%;
+	float: right;
+	text-align: center;
+	margin: 0;
+	background: #0A9;
+}
+
+#choice_box{
+	width: 16%;
+	height: 100px;
+	position: fixed;
+	top: 150px;
+	left: 12%;
+	text-align: center;
+	border: 2px solid skyblue;
+	border-radius: 10px;
+
+}
+#choice_box p{
+	margin-top: 18%;
+}
+#choice_box button{
+	width: 20%;
+	height: 30%;
+}
+#choice_box #cancle{
+	position: absolute;
+	top: 5%;
+	right: 0;
+}
+#choice_box #yes{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+#choice_box #no{
+	position: absolute;
+	bottom: 0;
+	right:0;
+}
