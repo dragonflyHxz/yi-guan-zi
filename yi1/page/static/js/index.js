@@ -1,6 +1,6 @@
 //获取所有说说
 function get_all_words(){
-	let url="http://127.0.0.1:8000/social/api/get_all_words";
+	let url="http://10.3.139.113:8000/social/api/get_all_words/";
 	$.get(url, function(data){
 		if(data.code==4004){
 			alert("请先登录");
@@ -24,7 +24,8 @@ function get_all_words(){
 
 				//点赞或者取消
 		    	$(".prise").click(function(){
-		    		let url="http://127.0.0.1:8000/social/api/like/";
+		    		alert("hello")
+		    		let url="http://10.3.139.113:8000/social/api/like/";
 		    		let like=this;
 		    		let mid=$(like).attr("mid");
 		    		$.post(url,data={"mid":mid},function(data){
@@ -43,7 +44,7 @@ function get_all_words(){
 
 		    	//查看用户是否匿名，否或互为好友或是自己的信息，跳转到用户页面
 				$(".message").click(function(){
-					let url="http://127.0.0.1:8000/social/api/check_mid_anonymous/";
+					let url="http://10.3.139.113:8000/social/api/check_mid_anonymous/";
 					let this_mes=this
 					let mid=$(this_mes).attr("mid");
 					$.get(url, data={"mid":mid},function(data){
@@ -78,15 +79,15 @@ function get_all_words(){
 
 //获取是否有未读信息 聊天信息 与好友申请信息
 function get_no_read(){
-	let url="http://127.0.0.1:8000/social/api/no_read_message"
+	let url="http://10.3.139.113:8000/social/api/no_read_message/";
 	$.get(url, function(data){
 		if(data.code==0){
 			state = data.data
 			if(state.chat){
-				;
+				$("#friend").addClass("no_read");
 			}
 			if(state.apply){
-				;
+				$("#information").addClass("no_read");
 			}
 		}	
 	})
@@ -97,7 +98,7 @@ $(function(){
 	
 	if (window.s) {window.s.close()}
     //创建socket连接
-    var socket = new WebSocket("ws://127.0.0.1:8000/social/api/information/");
+    var socket = new WebSocket("ws://10.3.139.113:8000/social/api/information/");
    	socket.onopen = function () {
     	console.log('WebSocket open');//成功连接上Websocket
     };
@@ -109,24 +110,17 @@ $(function(){
         	$("#message_box").html('')
         	get_all_words()
         }
-
-        //有新的好友未读信息
-        else if(e.data=='40001'){
-        	//为了简单，刷新页面，但增加了数据库操作，不优秀
-        	window.location.reload();
-        }
-
         //新的未读好友申请
-        else if(e.data=='40002'){
+        else if(e.data=='40001'){
         	//为了简单，刷新页面，但增加了数据库操作
-        	window.location.reload();
+        	// window.location.reload();
+        	get_no_read();
         }
+        //有新的好友未读信息
         else{
-        	console.log(e.data)
+        	get_no_read();
         }
     };
-
-
 
     // 如果已建立socket连接，直接打开
     if (socket.readyState == WebSocket.OPEN) 
@@ -138,11 +132,14 @@ $(function(){
         console.log('websocket已关闭');
     }
 
+
     get_all_words();
 	get_no_read();
 
+
+
 	$("#logout").click(function(){
-		let url = "http://127.0.0.1:8000/user/api/logout";
+		let url = "http://10.3.139.113:8000/user/api/logout/";
 		$.get(url, function(data){
 			window.location.href="/page/login/";
 		})

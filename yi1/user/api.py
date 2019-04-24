@@ -86,6 +86,7 @@ def get_profile(request):
         raise errors.NO_THIS_USER('no this user')
 
     user = users.first()
+    user["birthday"] = str(user["birthday"])
     return render_json({"user": user})
 
 
@@ -119,8 +120,8 @@ def set_profile(request):
 
     user.sex = sex
     user.birthday = birthday
+
     if avatar:
-        user.avatar = avatar
         upload_avatar_to_oss(user, avatar)
     else:
         user.save()

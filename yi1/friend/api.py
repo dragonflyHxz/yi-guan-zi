@@ -41,7 +41,11 @@ def get_all_chat_message(request):
         raise errors.USER_NOT_LOGIN('user not login')
 
     gid = request.GET.get('gid')
-    f_nickname = User.objects.get(id=gid)
+    f_user = User.objects.filter(id=gid)
+    if not f_user.exists():
+        raise errors.NO_THIS_USER('not this friend')
+
+    f_nickname = f_user.first().nickname
     # 可以在好友列表中添加好友标识
     if not f_nickname:
         f_nickname = '匿名好友'
@@ -56,7 +60,8 @@ def get_all_chat_message(request):
         id = mes.id
         sid = mes.sid
         gid = mes.gid
-        avatar = "#s"
+        uid = int(uid)
+        avatar = "#"
         if uid == sid:
             if mes.s_delete == 1:
                 continue
@@ -265,29 +270,35 @@ def apply_read_deal(request):
     if not uid:
         raise errors.USER_NOT_LOGIN('user not login')
 
-    id = request.POST.get('id')
-    apply = Friend_Apply.objects.filter(id=id)
+    apply_id = request.POST.get('apply_id')
+    apply = Friend_Apply.objects.filter(id=apply_id)
     if not apply.exists():
         raise errors.APPLY_EMPTY('not this apply')
 
     apply = apply.first()
+    state=apply.state
+    stime=apply.stime
+
     aid = apply.aid
     rid = apply.rid
     uid = int(uid)
-
+    sender = User.objects.get(id=aid).nickname
+    receiver = User.objects.get(id=rid).nickname
     if uid == aid:
+        a_user=1
         if apply.state != 'wait':
             apply.delete()
         else:
             apply.a_read = 1
             apply.save()
     elif uid == rid:
+        a_user = 0
         apply.r_read = 1
         apply.save()
     else:
         raise errors.FRIEND_APPLY_ERROR('not apply nor response')
 
-    return render_json('apply has been read')
+    return render_json({"sender": sender, "receiver": receiver, "state": state, "stime": str(stime), "a_user": a_user, "aid":aid})
 
 
 def res_friend_invite(request):
@@ -298,10 +309,10 @@ def res_friend_invite(request):
     if not uid:
         raise errors.USER_NOT_LOGIN('user not login')
 
-    id = request.POST.get('id')
+    apply_id = request.POST.get('apply_id')
     state = request.POST.get('state')
 
-    f_apply = Friend_Apply.objects.filter(id=id, rid=uid, state='wait')
+    f_apply = Friend_Apply.objects.filter(id=apply_id, rid=uid, state='wait')
     if not f_apply.exists():
         raise errors.FRIEND_APPLY_ERROR('not this apply')
 

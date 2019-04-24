@@ -3,17 +3,42 @@ $(function(){
 
 	//实时显示输入的值
 	$("#write_words").keyup(function(){
-		console.log($(this).val())
 		$("#commit_words").val($(this).val())
 	})
 
-	//退出
-	$("#logout").click(function(){
-		let url = "http://127.0.0.1:8000/user/api/logout/";
-		$.get(url, function(data){
-			window.location.href="/page/login/";
-		})
+	//返回
+	$("#reback").click(function(){
+		window.location.href="/page/index/"
 	})
+
+
+	//建立websocket连接
+	if (window.s){
+        window.s.close()
+    }
+    //创建socket连接
+    var socket = new WebSocket("ws://10.3.139.113:8000/social/api/information/");
+    socket.onopen = function () {
+        console.log('WebSocket open');//成功连接上Websocket
+    };
+    //服务端返回过来的数据
+    socket.onmessage = function (e) {
+		console.log(e.data);
+    };
+
+
+    // 如果已建立socket连接，直接打开
+    if (socket.readyState == WebSocket.OPEN)
+        socket.onopen();
+    window.s = socket;
+
+    window.onunload = function () {
+        window.s.close();//关闭websocket
+        console.log('websocket已关闭');
+    }
+
+
+
 
 
 	$("#commit").click(function(){
@@ -29,25 +54,26 @@ $(function(){
 				$("#choice_box").remove();
 			}
 			else{
-				let url = "http://127.0.0.1:8000/social/api/send_words/";
+				let url = "http://10.3.139.113:8000/social/api/send_words/";
 				let message=$("#commit_words").val()
-				let anonymous = 0
+				let anonymous = 0;
 				if($(this).attr("id")=="yes"){
-					anonymous = 1
+					anonymous = 1;
 				}
 				$.post(url, data={"message":message, "anonymous":anonymous}, function(data){
 					if(data.code==4004){
-						window.location.href="/page/login/"
+						window.location.href="/page/login/";
 					}
 					else if (data.code==4006) {
-						alert("说说内容不可以为空")
+						alert("说说内容不可以为空");
 					}
 					else if(data.code==0){
-						alert("发布成功")
-						window.location.href="/page/index/"
+						alert("发布成功");
+						socket.send("s_s");
+						window.location.href="/page/index/";
 					}
 					else{
-						alert("请刷新重试，刷新前请另存一下您的说说")
+						alert("请刷新重试，刷新前请另存一下您的说说");
 					}
 				})
 			}

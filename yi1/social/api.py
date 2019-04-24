@@ -26,21 +26,23 @@ def information(request):
 
     for message in online_users[uid]:
         # 需要前端发信息时传送一个标志, 根据此标志，后端返回相应的执行码
-        if message:
+        if message == b's_s':
+            for i, online_user in online_users.items():
+                if i!=uid:
+                    online_user.send('40000')
+        elif message == b'a_f':
             if gid in online_users:
-                if message == b"s_s":
-                    online_users[gid].send('40000')
-                if message == b"f_c":
-                    online_users[gid].send('40001')
-                elif message == b'a_f':
-                    online_users[gid].send('40002')
-                else:
-                    online_users[uid].send('error mark')
-            else:
-                pass
-        else:
+                online_users[gid].send('40001')
+        elif message == b'f_c':
+            if gid in online_users:
+                re_mes = '40002=' +str(uid)
+                online_users[gid].send(re_mes)
+
+        elif not message:
             del online_users[uid]
             print('connect close')
+        else:
+            online_users[uid].send('error mark')
 
 
 def no_read_message(request):

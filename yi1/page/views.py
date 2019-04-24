@@ -25,6 +25,9 @@ def information(request):
     return render(request, 'information.html')
 
 
+def apply_deal(request):
+    return render(request, 'apply_deal.html')
+
 def friend(request):
     return render(request, 'friend.html')
 

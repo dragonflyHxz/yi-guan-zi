@@ -4,6 +4,7 @@
     {% load static %}
 	<title>chat</title>
 	<script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/chat.js' %}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
 </head>
@@ -15,8 +16,9 @@
 
 	
 	<content>
+        <div  id="chat_box">
 
-
+		</div>
 	</content>
 
 
@@ -24,6 +26,7 @@
 		<textarea rows="1" id="write_words"></textarea>
 		<button id="commit">发送</button>
 	</footer>
-	
+
+
 </body>
 </html>

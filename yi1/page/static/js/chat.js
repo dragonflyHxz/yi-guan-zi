@@ -1,8 +1,43 @@
 $(function(){
 	//获取与好友的聊天记录	
-	let url="http://127.0.0.1:8000/friend/api/get_all_chat_message/";
+	let url="http://10.3.139.113:8000/friend/api/get_all_chat_message/";
 	let l_url = window.location.href;
 	let gid=parseInt(l_url.split("=")[1]);
+
+	if (window.s) {window.s.close()}
+    //创建socket连接
+    var socket = new WebSocket("ws://10.3.139.113:8000/social/api/information/?gid="+gid);
+   	socket.onopen = function () {
+    	console.log("WebSocket open");//成功连接上Websocket
+    };
+    //服务端返回过来的数据
+    socket.onmessage = function (e) {
+
+        if(e.data=="40000"){
+        	;
+        }
+        else if(e.data=="40001"){
+        	;
+		}
+		//有新的好友未读信息
+        else{
+        	now_gid = parseInt(e.data.split("=")[1]);
+			if(now_gid==gid){
+        		window.location.reload();
+			}
+        }
+    };
+
+    // 如果已建立socket连接，直接打开
+    if (socket.readyState == WebSocket.OPEN)
+    	socket.onopen();
+    window.s = socket;
+
+    window.onunload = function () {
+        window.s.close();//关闭websocket
+        console.log('websocket已关闭');
+    }
+
 
 	$.get(url, data={"gid":gid},function(data){
 		if(data.code==4004){
@@ -16,7 +51,7 @@ $(function(){
 			let f_nickname=data.data.f_nickname;
 			$("h2").html(f_nickname);
 			let mes_list=data.data.mes_list;
-			// {'mid':id,'sid':sid,'gid':gid,'message':message,'stime':str(stime)}
+
 			for(i in mes_list){
 				let tag;
 				if(mes_list[i].gid==gid){
@@ -32,8 +67,8 @@ $(function(){
 					mes_list[i].message+"</span><div style='clear: both;'></div></div>";		
 				}
 				$("#chat_box").append($(tag));
-				$('#chat_box').scrollTop( $('#chat_box')[0].scrollHeight);
 			}
+			$("#chat_box").scrollTop($("#chat_box")[0].scrollHeight);
 
 		}
 		else{
@@ -55,17 +90,22 @@ $(function(){
 			$("#write_words").val("")
 		}
 		else{
-			let url="http://127.0.0.1:8000/friend/api/send_message/";
+			message = message.trimRight();
+			let url="http://10.3.139.113:8000/friend/api/send_message/";
 			$.post(url, data={"gid":gid,"message":message}, function(data){
 				if(data.code==4004){
 					alert("请先登录");
 					window.location.href="/page/login/";
 				}
 				else if(data.code==0){
-					tag="<div><img src='"+
+					let tag="<div><img src='"+
 					data.data.avatar+"' class='you_img'><span class='you_mes' mid="+
 					data.data.mid+">"+
 					message+"</span><div style='clear: both;'></div></div>";
+
+					$("#chat_box").append($(tag));
+					$("#write_words").val("");
+					socket.send("f_c")
 				}
 				else{
 					alert("请刷新重试")

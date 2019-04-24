@@ -5,7 +5,7 @@ $(function(){
 		let re_password = $('#re_password').val()
 
 		if(nickname!=''&&password!=''&&re_password!=''){
-			var url = "http://127.0.0.1:8000/user/api/register/"
+			var url = "http://10.3.139.113:8000/user/api/register/"
 			$.post(url, data={'nickname':nickname, 'password':password, 're_password':re_password}, function(data){
 					if (data.code==0){
 				  		window.location.href='index.html'

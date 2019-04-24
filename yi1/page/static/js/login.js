@@ -4,7 +4,7 @@ $(function(){
 		let password = $('#password').val()
 
 		if(nickname!=''&&password!=''){
-			var url = "http://127.0.0.1:8000/user/api/login/"
+			var url = "http://10.3.139.113:8000/user/api/login/"
 			$.post(url, data={'nickname':nickname, 'password':password}, function(data){ 	
 				if (data.code==0){
 					window.location.href='/page/index/'}

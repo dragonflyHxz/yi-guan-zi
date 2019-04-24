@@ -58,6 +58,7 @@ urlpatterns = [
     url(r'^page/person/', views.person),
     url(r'^page/write/', views.write),
     url(r'^page/information/', views.information),
+    url(r'^page/apply_deal/', views.apply_deal),
     url(r'^page/friend/', views.friend),
     url(r'^page/chat/', views.chat),
     url(r'^page/mine/', views.mine),

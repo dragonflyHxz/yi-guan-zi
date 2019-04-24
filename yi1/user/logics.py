@@ -14,7 +14,6 @@ def upload_avatar_to_server(uid, avatar):
         img_type = '.png'
 
     file_name = 'avatar-%s'%uid + img_type
-    print(file_name)
 
     # save_path = ''
     # with open(save_path, 'wb') as fp:
@@ -30,11 +29,10 @@ def upload_avatar_to_oss(user, avatar):
     # 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建RAM账号。
     auth = oss2.Auth(config.ACCESSKEYID,config.ACCESSSECRET)
     # Endpoint以杭州为例，其它Region请按实际情况填写。
-    bucket = oss2.Bucket(auth, config.ALI_OSS_PATH , config.BUCKETNAME)
+    bucket = oss2.Bucket(auth, config.ALI_OSS_PATH, config.BUCKETNAME)
 
     bucket.put_object(file_name, avatar)
-
-    avatar_url = urljoin(config.ALI_OSS_PATH, file_name)
+    avatar_url = urljoin(config.IMG_PATH, file_name)
     user.avatar = avatar_url
     user.save()
 
