@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<title>通知</title>
+	<meta charset="utf-8">
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/apply_deal.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/apply_deal.css' %}">
+</head>
+<body>
+	<header>
+		<h2>hello, XXX</h2>
+		<button id="logout">退出</button>
+	</header>
+
+	<content id="apply_box">
+		<div id="message">here is a message</div>
+		<p id="sender">来自： </p>
+		<p id="receiver">接收者： </p>
+		<p id="state">状态： </p>
+		<p id="stime">日期： 2010-10-10</p>
+
+	</content>
+
+	<footer>
+		<button id="write">说说</button>
+		<button id="information">通知</button>
+		<button id="friend">好友</button>
+		<button id='mine'>我</button>
+	</footer>
+</body>
+</html>

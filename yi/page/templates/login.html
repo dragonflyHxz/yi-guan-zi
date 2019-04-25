@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+	<title>一罐</title>
+	<meta charset="utf-8">
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+</head>
+<body>
+	<div>
+		<input type="text" name="nickname" placeholder="请输入用户名" id="nickname">
+		<br><br>
+		<input type="text" name="password" placeholder="请输入密码" id="password">
+		<br><br>
+		<input type="button" name="submit" value="提交" id="commit">
+		<br><br>
+		<a href="http://127.0.0.1:8000/page/register/">注册</a>
+	</div>
+</body>
+</html>
